@@ -52,6 +52,9 @@ pub fn build(b: *std.Build) void {
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
 
+    const clap = b.dependency("clap", .{});
+    exe.addModule("clap", clap.module("clap"));
+
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
     const unit_tests = b.addTest(.{
